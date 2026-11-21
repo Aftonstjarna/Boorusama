@@ -61,7 +61,7 @@ set -eu
 here=$(dirname "$(readlink -f "$0")")
 export LD_LIBRARY_PATH="$here/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 # Keep Flatpak's exported desktop handlers visible so GIO can resolve the
-# default browser (e.g. Waterfox) for external links.
+# default browser (e.g. LibreWolf) for external links.
 export XDG_DATA_DIRS="$here/share:$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 # Gamescope's WSI layer cannot hook media_kit's offscreen Vulkan swapchains and
 # shows blocking dialogs. Flutter itself renders through OpenGL.
