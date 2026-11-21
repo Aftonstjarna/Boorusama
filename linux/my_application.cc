@@ -53,6 +53,15 @@ static void my_application_activate(GApplication* application) {
   g_autoptr(FlDartProject) project = fl_dart_project_new();
   fl_dart_project_set_dart_entrypoint_arguments(project, self->dart_entrypoint_arguments);
 
+#if defined(__aarch64__)
+  // Steam Frame runs OpenGL through Mesa zink. Impeller's GLES backend corrupts
+  // textures there, so default to Skia on arm64. Set BOORUSAMA_IMPELLER=1 to
+  // opt back in.
+  if (g_strcmp0(g_getenv("BOORUSAMA_IMPELLER"), "1") != 0) {
+    fl_dart_project_set_enable_impeller(project, FALSE);
+  }
+#endif
+
   FlView* view = fl_view_new(project);
   gtk_widget_show(GTK_WIDGET(view));
   gtk_container_add(GTK_CONTAINER(window), GTK_WIDGET(view));
