@@ -34,6 +34,10 @@ cp -a "$bundle/." "$appdir/"
 cp -a "$libs/." "$appdir/lib/"
 ln -sf libmpv.so.2 "$appdir/lib/libmpv.so"
 
+# Rockchip-only MDK backend. Nothing selects it on Adreno, and its
+# librockchip_mpp.so.1 dependency does not exist on SteamOS.
+rm -f "$appdir/lib/libmdk-rockchip.so"
+
 if [ -f "$root/assets/icon/icon-512x512.png" ]; then
   install -m644 "$root/assets/icon/icon-512x512.png" "$appdir/boorusama.png"
   install -Dm644 "$root/assets/icon/icon-512x512.png" \
